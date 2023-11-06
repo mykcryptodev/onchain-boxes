@@ -33,11 +33,11 @@ export const SUPPORTED_CHAINS = process.env.NODE_ENV === 'production'
 ;
 
 export const DEFAULT_CHAIN = process.env.NODE_ENV === 'production' 
-? Base
+? Mumbai
 : Mumbai
 ;
 export const ADVERTISEMENT_CHAIN = process.env.NODE_ENV === "production"
-? Base
+? BaseGoerli
 : BaseGoerli
 ;
 export const VOTING_CHAIN = BaseGoerli;
