@@ -82,11 +82,6 @@ export const Box:FC<{
     return false;
   }, [hasWon, isYetToBePaid, isWinner.q1, isWinner.q2, isWinner.q3, isWinner.f, qComplete, contest.q1Paid, contest.q2Paid, contest.q3Paid, contest.finalPaid]);
 
-  if (boxId === 7 || boxId === 8) {
-    console.log({
-      isWinner, contest, isYetToBePaid, isAbleToBePaid, qComplete
-    })
-  }
   type Quarter = "q1" | "q2" | "q3" | "f";
   const QuarterWinner: FC<{ quarter: Quarter }> = ({ quarter }) => (
     <div className="flex items-center gap-2">
