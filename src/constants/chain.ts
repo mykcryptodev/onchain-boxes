@@ -14,7 +14,7 @@ import {
 export const SUPPORTED_CHAINS = process.env.NODE_ENV === 'production'
 ? 
   [
-    Base,
+    Mumbai,
     BaseGoerli,
   ]
 : 
