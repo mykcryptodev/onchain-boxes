@@ -43,7 +43,6 @@ export const FetchGameData: FC<Props> = ({ game, btnClass, btnLabel, onFetched, 
     "gameScores",
     [game.id]
   );
-  console.log({ timeUntilCanFetch})
   const isLoading = useMemo(() => {
     return fetchIsLoading || (oracleGame?.requestInProgress || false);
   }, [fetchIsLoading, oracleGame]);
