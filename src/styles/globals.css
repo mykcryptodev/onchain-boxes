@@ -1,0 +1,100 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Extend daisy */
+.badge-xl {
+  height: 2rem;
+  font-size: 1.25rem;
+  line-height: 2rem;
+  padding-left: 0.917rem;
+  padding-right: 0.917rem;
+}
+
+/* overwrite button upper case */
+.btn {
+  @apply capitalize !important;
+}
+
+/* move an element up when hovered */
+.raise-on-hover {
+  @apply transition ease-in-out hover:-translate-y-1 hover:shadow-xl motion-reduce:transition-none motion-reduce:hover:transform-none;
+}
+
+/* softer text when muted */
+.text-muted {
+  @apply opacity-50;
+}
+
+/* remove up and down arrows from number inputs */
+@layer base {
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+
+/* 
+ * Thirdweb styles 
+ * These require !important to override Thirdweb's default styles
+*/
+.thirdweb-btn {
+  @apply btn capitalize !important;
+}
+
+.thirdweb-btn-circle-ghost-xs {
+  @apply btn btn-circle btn-ghost btn-xs min-w-fit capitalize !important;
+}
+
+.thirdweb-btn-primary {
+  @apply btn btn-primary flex items-center py-0 capitalize !important;
+}
+
+.thirdweb-btn-primary-block {
+  @apply btn btn-primary btn-block capitalize !important;
+}
+
+.thirdweb-btn-primary-xs {
+  @apply btn btn-primary btn-xs p-1 capitalize !important;
+}
+
+.thirdweb-btn-lg {
+  @apply btn btn-lg p-2 py-0 text-lg capitalize !important;
+}
+
+.thirdweb-btn-primary-lg {
+  @apply btn btn-primary btn-lg py-0 capitalize !important;
+}
+
+.thirdweb-btn-success-lg {
+  @apply btn btn-success btn-lg capitalize !important;
+}
+
+.thirdweb-btn-error-lg {
+  @apply btn btn-error btn-lg capitalize !important;
+}
+
+.thirdweb-btn-lg-normal {
+  @apply btn btn-lg capitalize !important;
+}
+
+.thirdweb-btn-sm {
+  @apply btn btn-sm p-1 text-sm capitalize !important;
+}
+
+.thirdweb-btn-xs {
+  @apply btn btn-xs p-1 text-xs capitalize !important;
+}
+
+.thirdweb-btn-ghost {
+  @apply btn btn-ghost capitalize !important;
+}
+
+.thirdweb-cover-mediarenderer video {
+  @apply rounded-lg object-cover !important;
+}
+
+.thirdweb-cover-mediarenderer button {
+  @apply hidden !important;
+}
