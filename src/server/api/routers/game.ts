@@ -100,7 +100,6 @@ export const gameRouter = createTRPCRouter({
         };
       };
       const data = await response.json() as EspnApiResponse;
-      console.log({ data });
       return data;
     }),
 });
