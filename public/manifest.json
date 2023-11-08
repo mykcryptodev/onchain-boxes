@@ -1,12 +1,12 @@
 {
-  "name": "PawSwap NFT Marketplace",
-  "short_name": "PawSwap",
-  "description": "An NFT Marketplace where fees go to charity.",
+  "name": "Onchain Boxes",
+  "short_name": "Boxes",
+  "description": "Play Super Bowl boxes onchain with crypto and decentralized sports oracles",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#FF65B3",
+  "theme_color": "#057aff",
   "orientation": "portrait",
   "icons": [
     {
