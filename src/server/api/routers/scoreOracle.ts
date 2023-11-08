@@ -1,11 +1,11 @@
-import {
-  decodeResult,
-  FulfillmentCode,
-  ResponseListener,
-  ReturnType,
-  simulateScript,
-  SubscriptionManager,
-} from "@chainlink/functions-toolkit";
+// import {
+//   decodeResult,
+//   FulfillmentCode,
+//   ResponseListener,
+//   ReturnType,
+//   simulateScript,
+//   SubscriptionManager,
+// } from "@chainlink/functions-toolkit";
 import { ThirdwebSDK } from "@thirdweb-dev/sdk";
 import { ethers, type Signer } from "ethers";
 import { z } from "zod";
@@ -64,6 +64,7 @@ export const scoreOracleRouter = createTRPCRouter({
     const provider = sdk.getProvider();
     const signer = sdk.getSigner() as Signer;
   
+    /* COMMENT OUT SIMULATION FOR NOW 
     ///////// START SIMULATION ////////////
   
     console.log("Start simulation...");
@@ -123,7 +124,7 @@ export const scoreOracleRouter = createTRPCRouter({
     } catch (error) {
       console.error("Error estimating costs:", error);
     }
-  
+    */
     //////// MAKE REQUEST ////////
   
     console.log("\nMake request...");
@@ -167,6 +168,7 @@ export const scoreOracleRouter = createTRPCRouter({
       `See your request in the explorer ${explorerUrl}/tx/${transaction.hash}`
     );
   
+    /* COMMENT OUT LISTENER FOR NOW 
     const responseListener = new ResponseListener({
       provider: provider,
       functionsRouterAddress: routerAddress,
@@ -238,5 +240,6 @@ export const scoreOracleRouter = createTRPCRouter({
     } catch (error) {
       console.error("Error listening for response:", error);
     }
+    */
   }),
 });
