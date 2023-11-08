@@ -225,7 +225,7 @@ export const Box:FC<{
                 <FetchGameData
                   game={game}
                   btnClass="btn btn-primary btn-block"
-                  btnLabel="Refresh scores onchain to claim reward"
+                  btnLabel="Refresh scores to claim reward"
                   tooltipDirection="tooltip-top"
                   onFetched={() => console.log('scores refreshed')}
                 />
