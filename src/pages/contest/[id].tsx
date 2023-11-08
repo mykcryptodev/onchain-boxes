@@ -134,6 +134,17 @@ export const Contest: NextPage = () => {
     );
   };
 
+  // loading all boxes at once on mobile crashes the page
+  const [boxesToLoad, setBoxesToLoad] = useState<number>(0);
+  useEffect(() => {
+    if (!contest || !game) return;
+    // every 5 seconds, increase boxes to load by 25 until it reaches 121
+    const interval = setInterval(() => {
+      setBoxesToLoad((prev) => Math.min(prev + 11, 121));
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [contest, game]);
+
   if (!isMounted || gameIsLoading || contestIsLoading) return (
     <ContestSkeleton />
   );
@@ -205,7 +216,7 @@ export const Contest: NextPage = () => {
                       <div key={i} className={`border-2 rounded-lg box-border w-full h-full aspect-square grid place-content-center bg-base-200`} />
                     )
                   }
-                  return (
+                  if (i < boxesToLoad) return (
                     <Box
                       key={i}
                       boxId={boxId}
@@ -225,6 +236,9 @@ export const Contest: NextPage = () => {
                       }}
                     />
                   );
+                  return (
+                    <div key={i} className="h-full w-full bg-base-300 animate-pulse rounded-lg"></div>
+                  )
                 })}
               </div>
             </div>
