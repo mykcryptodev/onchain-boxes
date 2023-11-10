@@ -138,9 +138,9 @@ export const Contest: NextPage = () => {
   const [boxesToLoad, setBoxesToLoad] = useState<number>(0);
   useEffect(() => {
     if (!contest || !game) return;
-    // every 5 seconds, increase boxes to load by 25 until it reaches 121
+    // load boxes incrementally to avoid crashing mobile
     const interval = setInterval(() => {
-      setBoxesToLoad((prev) => Math.min(prev + 11, 121));
+      setBoxesToLoad((prev) => Math.min(prev + 22, 121));
     }, 1000);
     return () => clearInterval(interval);
   }, [contest, game]);
