@@ -159,10 +159,10 @@ export const Box:FC<{
     <div className="sm:tooltip sm:tooltip-bottom cursor-pointer" data-tip={boxOwnerName}>
       <div 
         className={`
-          ${hasWon ? 'bg-gradient-to-b from-secondary to-success' : ''} 
-          ${isAbleToBePaid && isYetToBePaid ? 'bg-gradient-to-b from-primary to-success' : ''}
-          border-2 
           ${box.owner === address ? 'border-primary' : ''} 
+          ${(isAbleToBePaid && isYetToBePaid) ? 'bg-gradient-to-b from-primary to-success border-success' : ''}
+          ${(hasWon && !(isAbleToBePaid && isYetToBePaid)) ? 'bg-gradient-to-b from-transparent to-success border-success' : ''}
+          border-2 
           rounded-lg box-border w-full h-full aspect-square grid place-content-center`}
       >
         <label 

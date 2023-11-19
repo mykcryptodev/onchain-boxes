@@ -74,6 +74,21 @@ export const Contest: NextPage = () => {
   }, {
     enabled: isMounted && !!id,
   });
+
+  const { data: gameScoresUpdatedEvent } = useContractEvents(
+    contract,
+    "GameScoresUpdated",
+    {
+      queryFilter: {
+        filters: {
+          gameId: contest?.gameId, // e.g. Only events where tokenId = 123
+        },
+        fromBlock: blockNumber, // Events starting from this block
+        order: "asc", // Order of events ("asc" or "desc")
+      },
+      subscribe: true, // Subscribe to new events
+    },
+  );
   // loading all boxes at once on mobile crashes the page
   const [boxesToLoad, setBoxesToLoad] = useState<number>(0);
 
@@ -82,6 +97,28 @@ export const Contest: NextPage = () => {
     setBoxesToLoad(0);
     void refetchContest();
   }, [refetchContest]);
+
+  const [gameScoresUpdatedTxHash, setGameScoresUpdatedTxHash] = useState<string | undefined>();
+  useEffect(() => {
+    if (gameScoresUpdatedEvent) {
+      setGameScoresUpdatedTxHash(gameScoresUpdatedEvent[0]?.transaction.transactionHash);
+    }
+  }, [popNotification, gameScoresUpdatedEvent, refetch]);
+
+  useEffect(() => {
+    if (gameScoresUpdatedTxHash === undefined) return;
+    void refetch();
+    popNotification({
+      title: "Scoreboard Updated Onchain",
+      description: "The scoreboard for this contest has been updated with real-world data!",
+      type: "info",
+      actions: [{
+        label: `View on ${activeChainData.explorers?.[0]?.name ?? 'Block Explorer'}`,
+        link: `${activeChainData.explorers?.[0]?.url ?? ''}/tx/${gameScoresUpdatedTxHash}`,
+      }]
+    });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [gameScoresUpdatedTxHash]);
 
   const [scoresAssignedTxHash, setScoresAssignedTxHash] = useState<string | undefined>();
   useEffect(() => {
