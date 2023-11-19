@@ -6,7 +6,6 @@ export type Contest = {
   creator: string;
   boxCost: BigNumber;
   boxesCanBeClaimed: boolean;
-  randomValuesSet: boolean;
   q1Paid: boolean;
   q2Paid: boolean;
   q3Paid: boolean;
@@ -22,7 +21,6 @@ export type ContestData = {
   creator: string;
   boxCost: string;
   boxesCanBeClaimed: boolean;
-  randomValuesSet: boolean;
   q1Paid: boolean;
   q2Paid: boolean;
   q3Paid: boolean;
