@@ -19,6 +19,7 @@ import { BOX_CONTRACT } from "~/constants/addresses";
 import ActiveChainContext from "~/context/ActiveChain";
 import NotificationContext from "~/context/Notification";
 import useConnectWalletOptions from "~/hooks/useConnectWalletOptions";
+import useIsDarkTheme from "~/hooks/useIsDarkTheme";
 import useLastDigits from "~/hooks/useLastDigits";
 import { type OracleGame } from "~/types/contest";
 import { type Game } from "~/types/game";
@@ -31,6 +32,7 @@ export const Contest: NextPage = () => {
   const { activeChainData } = useContext(ActiveChainContext);
   const connectWalletOptions = useConnectWalletOptions();
   const { popNotification } = useContext(NotificationContext);
+  const isDarkTheme = useIsDarkTheme();
 
   const [isMounted, setIsMounted] = useState<boolean>(false);
   useEffect(() => {
@@ -213,7 +215,7 @@ export const Contest: NextPage = () => {
                       )
                     }
                     return (
-                      <div key={i} className={`border-2 rounded-lg box-border w-full h-full aspect-square grid place-content-center bg-base-200`} />
+                      <div key={i} className={`border-2 ${isDarkTheme ? 'border-neutral' : ''} rounded-lg box-border w-full h-full aspect-square grid place-content-center bg-base-${isDarkTheme ? '300' : '200'}`} />
                     )
                   }
                   if (i < boxesToLoad) return (
