@@ -16,7 +16,7 @@ export default {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         light: {
           // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-var-requires
-          ...require("daisyui/src/theming/themes")["[data-theme=winter]"],
+          ...require("daisyui/src/theming/themes")["winter"],
           // primary: "#FF65B3",
           // secondary: "rgb(56, 58, 107)",
           // "primary-content": "#FFFFFF",
@@ -28,7 +28,7 @@ export default {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         dark: {
           // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-var-requires
-          ...require("daisyui/src/theming/themes")["[data-theme=dracula]"],
+          ...require("daisyui/src/theming/themes")["dracula"],
           primary: "rgb(5, 122, 255)",
           // secondary: "rgb(56, 58, 107)",
         },
