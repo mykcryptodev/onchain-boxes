@@ -2,7 +2,6 @@ import { ThirdwebSDK } from "@thirdweb-dev/sdk";
 import { type BigNumber } from "ethers";
 import { z } from "zod";
 
-import { boxABI } from "~/constants/abi/box";
 import { BOX_CONTRACT } from "~/constants/addresses";
 import { DEFAULT_CHAIN,SUPPORTED_CHAINS } from "~/constants/chain";
 import {
@@ -22,7 +21,7 @@ export const contestRouter = createTRPCRouter({
       const sdk = new ThirdwebSDK(chain.chainId, {
         secretKey: process.env.THIRDWEB_SECRET_KEY,
       });
-      const contract = await sdk.getContract(BOX_CONTRACT[chain.slug] as string, boxABI);
+      const contract = await sdk.getContract(BOX_CONTRACT[chain.slug] as string);
       const [contest, boxes, rows, cols] = await Promise.all([
         contract.call("contests", [input.id]),
         contract.call("fetchAllBoxesByContest", [input.id]),
@@ -58,7 +57,7 @@ export const contestRouter = createTRPCRouter({
       const sdk = new ThirdwebSDK(chain.chainId, {
         secretKey: process.env.THIRDWEB_SECRET_KEY,
       });
-      const contract = await sdk.getContract(BOX_CONTRACT[chain.slug] as string, boxABI);
+      const contract = await sdk.getContract(BOX_CONTRACT[chain.slug] as string);
       // the ending index cannot be greater than the total number of contests
       const totalContests = await contract.call("contestIdCounter") as BigNumber;
       const startingIndex = Math.max((input.skip ? totalContests.toNumber() - input.skip : totalContests.toNumber()), 0);

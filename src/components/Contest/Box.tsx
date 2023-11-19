@@ -57,12 +57,12 @@ export const Box:FC<{
   }, [col, lastDigits.home.q1, lastDigits.home.q2, lastDigits.home.q3, lastDigits.home.f, lastDigits.away.q1, lastDigits.away.q2, lastDigits.away.q3, lastDigits.away.f, row, quarterCompletedLive, game.competitions]);
 
   const hasWon = useMemo(() => {
-    if (!contest.rewardsCanBeClaimed) return false;
+    if (!contest.randomValuesSet) return false;
     return (isWinner.q1 && quarterCompletedLive >= 1) || 
       (isWinner.q2 && quarterCompletedLive >= 2) || 
       (isWinner.q3 && quarterCompletedLive >= 3) || 
       (isWinner.f && game.competitions?.[0]?.status?.type?.completed);
-    }, [contest.rewardsCanBeClaimed, isWinner.q1, isWinner.q2, isWinner.q3, isWinner.f, quarterCompletedLive, game.competitions]);
+    }, [contest.randomValuesSet, isWinner.q1, isWinner.q2, isWinner.q3, isWinner.f, quarterCompletedLive, game.competitions]);
 
   const isYetToBePaid = useMemo(() => {
     if (isWinner.q1 && !contest.q1Paid) return true;

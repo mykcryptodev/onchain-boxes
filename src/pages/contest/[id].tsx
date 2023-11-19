@@ -178,7 +178,7 @@ export const Contest: NextPage = () => {
           {!contest.randomValuesSet && contest.boxesCanBeClaimed && (
             <GenerateRandomValues contest={contest} onValuesGenerated={() => void refetch()} />
           )}
-          {contest.randomValuesSet && !contest.rewardsCanBeClaimed && (
+          {contest.randomValuesSet && !contest.randomValuesSet && (
             <ApplyRandomValues contest={contest} onValuesApplied={() => void refetch()} />
           )}
           <div className="grid grid-cols-12 mt-2">
@@ -205,7 +205,7 @@ export const Contest: NextPage = () => {
                   const boxId = i % 11 === 0 || i < 11 ? 0 : (rowNumber - 1) * 10 + colNumber - 1;
 
                   if (i % 11 === 0 || i < 11) {
-                    if (contest.rewardsCanBeClaimed) {
+                    if (contest.randomValuesSet) {
                       return (
                         <div key={i} className={`border-2 rounded-lg box-border w-full h-full aspect-square grid place-content-center bg-base-200`}>
                           {(i === 0) ? '' : (rowNumber === 0) ? contest.cols[colNumber - 1] : (colNumber === 0) ? contest.rows[rowNumber - 1] : ''}
