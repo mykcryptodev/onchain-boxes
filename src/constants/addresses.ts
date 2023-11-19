@@ -65,14 +65,18 @@ export const BOX_CONTRACT: ContractAddress = {
   // ['mumbai']: '0xc68371f21C3e9b60Fb2E41D523DEC5A3c071E533',
   // ['mumbai']: '0xe13f70F0d60A0ADEcB451aECaed71e3cB7e12EDe',
   // ['mumbai']: '0xd80ecf37656a5997f8f5b1494dd241acc0a0bf1b',
-  ['mumbai']: '0xa114Ef31a6A1F66b3129A175980aCD697D3257aa',
+  // ['mumbai']: '0xa114Ef31a6A1F66b3129A175980aCD697D3257aa',
+  // ['mumbai']: '0x8Af094CaEFD25e2577700e4EB69c33247971a88a',
+  ['mumbai']: '0x6CEF1850753b783ba6eF7C568C85Dc10918537D8',
 }
 
 export const GAMESCORE_ORACLE_CONTRACT: ContractAddress = {
   // ['mumbai']: '0xECb47CabAC187005e8A01850dD3aFAD9DF3e6CA9',
   // ['mumbai']: '0x35a00139bB346abB41a93D5DdcaF570Efc111289',
   // ['mumbai']: '0xd80ecf37656a5997f8f5b1494dd241acc0a0bf1b',
-  ['mumbai']: '0xa114Ef31a6A1F66b3129A175980aCD697D3257aa',
+  // ['mumbai']: '0xa114Ef31a6A1F66b3129A175980aCD697D3257aa',
+  // ['mumbai']: '0x8Af094CaEFD25e2577700e4EB69c33247971a88a',
+  ['mumbai']: '0x6CEF1850753b783ba6eF7C568C85Dc10918537D8',
 }
 
 export const CHAINLINK_ROUTER_ADDRESS: ContractAddress = {
