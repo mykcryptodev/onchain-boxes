@@ -1,5 +1,6 @@
 import { Transition } from '@headlessui/react';
 import { CheckCircleIcon, XCircleIcon, XMarkIcon } from '@heroicons/react/20/solid';
+import { InformationCircleIcon } from '@heroicons/react/24/outline';
 import { type FC, Fragment, useContext } from 'react';
 
 import NotificationContext from '~/context/Notification';
@@ -15,6 +16,8 @@ export const Notification: FC = () => {
         return "ring-success";
       case "error":
         return "ring-error";
+      case "info":
+        return "ring-info";
       default:
         return "";
     }
@@ -35,10 +38,14 @@ export const Notification: FC = () => {
         <div className="p-4">
           <div className="flex items-start">
             <div className="flex-shrink-0 pt-0.5">
-              {notification?.type === "success" ? (
+              {notification?.type === "success" && (
                 <CheckCircleIcon className="h-6 w-6 stroke-2 text-success" aria-hidden="true" />
-              ) : (
+              )}
+              {notification?.type === "error" && (
                 <XCircleIcon className="h-6 w-6 stroke-2 text-error" aria-hidden="true" />
+              )}
+              {notification?.type !== "success" &&  notification?.type !== "error" && (
+                <InformationCircleIcon className="h-6 w-6 stroke-2 text-info" aria-hidden="true" />
               )}
             </div>
             <div className="ml-3 w-0 flex-1">

@@ -3,7 +3,7 @@ import { MediaRenderer,NATIVE_TOKEN_ADDRESS,type TransactionError,type Transacti
 import { BigNumber, ethers } from "ethers";
 import { type NextPage } from "next";
 import { useRouter } from "next/router";
-import { type FC, useContext,useEffect,useMemo,useState } from "react";
+import { type FC, useCallback,useContext,useEffect,useMemo,useState } from "react";
 
 import MoonpayPopup from "~/components/BuyCrypto/MoonPay";
 import StripePopUp from "~/components/BuyCrypto/Stripe";
@@ -50,9 +50,9 @@ export const Contest: NextPage = () => {
       setBlockNumber(blockNumber);
     });
   }, [sdk]);
-  const { data: randomValuesReceivedEvent } = useContractEvents(
+  const { data: scoresAssignedEvent } = useContractEvents(
     contract,
-    "RandomValuesReceived",
+    "ScoresAssigned",
     {
       queryFilter: {
         filters: {
@@ -64,18 +64,46 @@ export const Contest: NextPage = () => {
       subscribe: true, // Subscribe to new events
     },
   );
-  console.log({randomValuesReceivedEvent , blockNumber })
-
   const { 
     data: contest, 
     isLoading: contestIsLoading, 
-    refetch 
+    refetch: refetchContest,
   } = api.contest.get.useQuery({
     id: Number(id),
     chainId: activeChainData.chainId
   }, {
     enabled: isMounted && !!id,
   });
+  // loading all boxes at once on mobile crashes the page
+  const [boxesToLoad, setBoxesToLoad] = useState<number>(0);
+
+  // set boxesToLoad to 0 and refetch the contest
+  const refetch = useCallback(() => {
+    setBoxesToLoad(0);
+    void refetchContest();
+  }, [refetchContest]);
+
+  const [scoresAssignedTxHash, setScoresAssignedTxHash] = useState<string | undefined>();
+  useEffect(() => {
+    if (scoresAssignedEvent) {
+      setScoresAssignedTxHash(scoresAssignedEvent[0]?.transaction.transactionHash);
+    }
+  }, [popNotification, scoresAssignedEvent, refetch]);
+
+  useEffect(() => {
+    if (scoresAssignedTxHash === undefined) return;
+    void refetch();
+    popNotification({
+      title: "Scores Assigned",
+      description: "The random scores for this contest have been generated and assigned!",
+      type: "info",
+      actions: [{
+        label: `View on ${activeChainData.explorers?.[0]?.name ?? 'Block Explorer'}`,
+        link: `${activeChainData.explorers?.[0]?.url ?? ''}/tx/${scoresAssignedTxHash}`,
+      }]
+    });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [scoresAssignedTxHash]);
 
   const { data: game, isLoading: gameIsLoading } = api.game.get.useQuery({
     id: Number(contest?.gameId ?? 0),
@@ -136,8 +164,6 @@ export const Contest: NextPage = () => {
     );
   };
 
-  // loading all boxes at once on mobile crashes the page
-  const [boxesToLoad, setBoxesToLoad] = useState<number>(0);
   useEffect(() => {
     if (!contest || !game) return;
     // load boxes incrementally to avoid crashing mobile
