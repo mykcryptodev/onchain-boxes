@@ -29,7 +29,8 @@ function classNames(...classes: (string | boolean | undefined)[]) {
 
 const getDayId = (date: Date) => {
   // count how many days elapsed from Jan 1, 1970 to the date passed in
-  return Math.floor((date.getTime() - new Date(1970, 0, 1).getTime()) / 1000 / 60 / 60 / 24);
+  const utcDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+  return Math.floor((utcDate.getTime() - new Date(1970, 0, 1).getTime()) / 1000 / 60 / 60 / 24) + 1;
 }
 
 interface Props {
@@ -55,7 +56,7 @@ const AdvertisementCalendar: FC<Props> = ({ adType, callback, adminControls }) =
     isCurrentMonth: true,
     isToday: new Date(year, month, i + 1).toDateString() === today.toDateString(),
     isSelected: selectedDates.some((date) => date.toDateString() === new Date(year, month, i + 1).toDateString()),
-    dayId: getDayId(new Date(year, month, i + 1)),
+    dayId: getDayId(new Date(year, month, i)),
   })) as Day[];
   // if the first day of the days array is not Monday, add days from the previous month to the beginning of the array
   const firstDay = days[0]?.date.getDay() || new Date().getDay();
@@ -67,7 +68,7 @@ const AdvertisementCalendar: FC<Props> = ({ adType, callback, adminControls }) =
       isCurrentMonth: false,
       isToday: new Date(year, month - 1, i + 1).toDateString() === today.toDateString(),
       isSelected: selectedDates.some((date) => date.toDateString() === new Date(year, month - 1, i + 1).toDateString()),
-      dayId: getDayId(new Date(year, month - 1, i + 1)),
+      dayId: getDayId(new Date(year, month - 1, i)),
     })) as Day[];
     days.unshift(...previousMonthDays.slice(previousMonthDays.length - firstDay + 1));
   }
@@ -79,8 +80,8 @@ const AdvertisementCalendar: FC<Props> = ({ adType, callback, adminControls }) =
       dateString: new Date(year, month + 1, i + 1).toISOString().split('T')[0],
       isCurrentMonth: false,
       isToday: new Date(year, month + 1, i).toDateString() === today.toDateString(),
-      isSelected: selectedDates.some((date) => date.toDateString() === new Date(year, month + 1, i + 1).toDateString()),
-      dayId: getDayId(new Date(year, month + 1, i + 1)),
+      isSelected: selectedDates.some((date) => date.toDateString() === new Date(year, month + 1, i).toDateString()),
+      dayId: getDayId(new Date(year, month + 1, i)),
     })) as Day[];
     days.push(...nextMonthDays);
   }
@@ -97,7 +98,7 @@ const AdvertisementCalendar: FC<Props> = ({ adType, callback, adminControls }) =
   const price = useMemo(() => {
     // for each selected date, get the corresponding ad and sum up the prices
     return selectedDates.reduce((acc, date) => {
-      const ad = ads?.find((ad) => ad.id === getDayId(date) + 1);
+      const ad = ads?.find((ad) => ad.id === getDayId(date));
       if (ad) {
         return acc.add(ad.price);
       } else {

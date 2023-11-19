@@ -14,7 +14,8 @@ import { api } from "~/utils/api";
 
 const getDayId = (date: Date) => {
   // count how many days elapsed from Jan 1, 1970 to the date passed in
-  return Math.floor((date.getTime() - new Date(1970, 0, 1).getTime()) / 1000 / 60 / 60 / 24) + 1;
+  const utcDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+  return Math.floor((utcDate.getTime() - new Date(1970, 0, 1).getTime()) / 1000 / 60 / 60 / 24) + 1;
 }
 
 interface Props {
