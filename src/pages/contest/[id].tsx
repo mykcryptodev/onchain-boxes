@@ -248,7 +248,7 @@ export const Contest: NextPage = () => {
           {address && !profileIsLoading && userHasNoProfileName && selectedBoxes.length > 0 && (
             <div className="btm-nav sm:h-1/2 h-4/5 bg-base-300 z-10 px-2">
               <div className="flex flex-col gap-2">
-                <div className="flex justify-end w-full">
+                <div className="flex justify-end w-full max-w-sm">
                   <button
                     className="btn btn-ghost btn-circle btn-sm p-2"
                     onClick={() => {
@@ -271,6 +271,16 @@ export const Contest: NextPage = () => {
           {address && !hasEnoughBalance && selectedBoxes.length > 0 && (
             <div className="btm-nav sm:h-2/6 h-1/2 bg-base-300">
               <div className="flex flex-col gap-2">
+                <div className="flex justify-end w-full max-w-sm">
+                  <button
+                    className="btn btn-ghost btn-circle btn-sm p-2"
+                    onClick={() => {
+                      setSelectedBoxes([]);
+                    }}
+                  >
+                    <XMarkIcon className="w-4 h-4 stroke-2" />
+                  </button>
+                </div>
                 <div>You do not have enough {activeChainData.nativeCurrency.name} to claim these boxes.</div>
                 <div className="stats shadow">
                   <div className="stat">
