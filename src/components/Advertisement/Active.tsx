@@ -1,4 +1,4 @@
-import { ArrowLeftCircleIcon, ArrowRightCircleIcon, ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
+import { ArrowLeftCircleIcon, ArrowRightCircleIcon, ArrowTopRightOnSquareIcon, QuestionMarkCircleIcon } from "@heroicons/react/24/outline";
 import { MediaRenderer } from "@thirdweb-dev/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -68,6 +68,35 @@ export const ActiveAdvertisement: FC<Props> = ({ type, showFallback }) => {
     }
   }
 
+  const DisclaimerModal: FC = () => {
+    return (
+      <>
+        <button className="btn btn-xs btn-ghost opacity-50 w-fit mb-1" onClick={()=>(document.getElementById('ad-disclaimer-modal') as HTMLDialogElement).showModal()}>
+          <div className="flex items-center gap-1">
+            <span>Onchain Ad</span>
+            <QuestionMarkCircleIcon className="w-3 h-3 stroke-2" />
+          </div>
+        </button>
+        <dialog id="ad-disclaimer-modal" className="modal modal-bottom sm:modal-middle">
+          <div className="modal-box">
+            <h3 className="font-bold text-lg">What are onchain ads?</h3>
+            <p className="py-4">Onchain ads allows anyone to advertise on {MARKETPLACE_NAME}. Ads are bought in day-long increments paid in {ADVERTISEMENT_CHAIN.nativeCurrency.symbol} on {ADVERTISEMENT_CHAIN.name}. Advertisers can also set the price for their ad slot to be overwritten.</p>
+            <p className="py-4">{MARKETPLACE_NAME} may hide ads that violate community guidelines without refund.</p>
+            <div className="modal-action">
+              <Link className="btn btn-primary" href="/advertisement/create">
+                Buy an Ad
+              </Link>
+              <form method="dialog">
+                {/* if there is a button in form, it will close the modal */}
+                <button className="btn">Close</button>
+              </form>
+            </div>
+          </div>
+        </dialog>
+      </>
+    )
+  };
+
   if (adIsLoading || onchainAdRecordIsLoading) {
     if (type === "BANNER") {
       return (
@@ -84,6 +113,7 @@ export const ActiveAdvertisement: FC<Props> = ({ type, showFallback }) => {
   if (ad && type === "BANNER" && !isCensored) {
     return (
       <div>
+        <DisclaimerModal/>
         <div onClick={handleAdClicked} className="h-16 w-full cursor-pointer bg-base-200 rounded-lg">
           <MediaRenderer
             src={ad.media}
@@ -93,7 +123,7 @@ export const ActiveAdvertisement: FC<Props> = ({ type, showFallback }) => {
           />
         </div>
         <Link href="/advertisement/create" className="flex w-full justify-end items-center text-xs p-2 gap-1 text-muted bg-base-100">
-          <span>Advertise with {MARKETPLACE_NAME} onchain</span>
+          <span>Advertise with {MARKETPLACE_NAME}</span>
           <ArrowTopRightOnSquareIcon className="w-3 h-3 stroke-2" />
         </Link>
       </div>
@@ -103,13 +133,16 @@ export const ActiveAdvertisement: FC<Props> = ({ type, showFallback }) => {
   if (ad && type === "HERO" && !isCensored) {
     return (
       <div>
-        <div className="w-full justify-end items-center gap-2 flex">
-          <button onClick={() => void scroll(-1024)} className="btn btn-ghost btn-circle">
-            <ArrowLeftCircleIcon className="w-8 h-8 stroke-2" />
-          </button>
-          <button onClick={() => void scroll(1024)} className="btn btn-ghost btn-circle">
-            <ArrowRightCircleIcon className="w-8 h-8 stroke-2" />
-          </button>
+        <div className="w-full justify-between items-end gap-2 flex">
+          <DisclaimerModal/>
+          <div className="flex items-center">
+            <button onClick={() => void scroll(-1024)} className="btn btn-ghost btn-circle">
+              <ArrowLeftCircleIcon className="w-8 h-8 stroke-2" />
+            </button>
+            <button onClick={() => void scroll(1024)} className="btn btn-ghost btn-circle">
+              <ArrowRightCircleIcon className="w-8 h-8 stroke-2" />
+            </button>
+          </div>
         </div>
         <div id="hero-carousel" className="carousel w-full aspect-video">
           <div className="carousel-item w-full">
@@ -129,7 +162,7 @@ export const ActiveAdvertisement: FC<Props> = ({ type, showFallback }) => {
           </div> 
         </div>
         <Link href="/advertisement/create" className="flex w-full justify-end items-center text-xs p-2 gap-1 text-muted bg-base-100">
-          <span>Advertise with {MARKETPLACE_NAME} onchain</span>
+          <span>Advertise with {MARKETPLACE_NAME}</span>
           <ArrowTopRightOnSquareIcon className="w-3 h-3 stroke-2" />
         </Link>
       </div>
