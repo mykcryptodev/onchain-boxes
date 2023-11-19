@@ -8,7 +8,7 @@ const useConnectWalletOptions = () => {
 
   return {
     auth: {
-      loginOptional: false,
+      loginOptional: true,
     },
     btnTitle: "Login",
     className: "thirdweb-btn-primary",

@@ -165,7 +165,6 @@ export const Box:FC<{
           ${box.owner === address ? 'border-primary' : ''} 
           rounded-lg box-border w-full h-full aspect-square grid place-content-center`}
       >
-        {/* The button to open modal */}
         <label 
           htmlFor={`profile-modal-${boxId}`} 
           className="btn btn-ghost btn-circle btn-xs sm:btn-md"
@@ -177,9 +176,8 @@ export const Box:FC<{
           )}
         </label>
 
-        {/* Put this part before </body> tag */}
         <input type="checkbox" id={`profile-modal-${boxId}`} className="modal-toggle" />
-        <div className="modal">
+        <div className="modal modal-bottom sm:modal-middle">
           <div className="modal-box overflow-x-hidden">
             <h3 className="font-bold text-lg">
               <Link 
