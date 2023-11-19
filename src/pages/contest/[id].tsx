@@ -1,4 +1,4 @@
-import { CheckIcon, DocumentDuplicateIcon } from "@heroicons/react/24/outline";
+import { CheckIcon, DocumentDuplicateIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { MediaRenderer,NATIVE_TOKEN_ADDRESS,type TransactionError,type TransactionResult,useAddress,useBalance, useContract, useContractEvents, useContractRead,useSDK,Web3Button } from "@thirdweb-dev/react";
 import { BigNumber, ethers } from "ethers";
 import { type NextPage } from "next";
@@ -244,8 +244,18 @@ export const Contest: NextPage = () => {
             </div>
           </div>
           {address && !profileIsLoading && userHasNoProfileName && selectedBoxes.length > 0 && (
-            <div className="btm-nav sm:h-1/2 h-3/5 bg-base-300 z-10 px-2">
+            <div className="btm-nav sm:h-1/2 h-4/5 bg-base-300 z-10 px-2">
               <div className="flex flex-col gap-2">
+                <div className="flex justify-end w-full">
+                  <button
+                    className="btn btn-ghost btn-circle btn-sm p-2"
+                    onClick={() => {
+                      setSelectedBoxes([]);
+                    }}
+                  >
+                    <XMarkIcon className="w-4 h-4 stroke-2" />
+                  </button>
+                </div>
                 <div className="text-3xl font-bold">Add your profile</div>
                 <div>
                   <ProfileNameAndImageForm 

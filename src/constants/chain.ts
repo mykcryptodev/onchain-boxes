@@ -1,12 +1,6 @@
-import { 
-  Avalanche, 
-  AvalancheFuji, 
+import {
   Base,
-  BaseGoerli,
-  Binance, 
-  BinanceTestnet,
-  Ethereum, 
-  Goerli, 
+  BaseGoerli, 
   Mumbai,
   Polygon,
 } from "@thirdweb-dev/chains";
@@ -19,12 +13,6 @@ export const SUPPORTED_CHAINS = process.env.NODE_ENV === 'production'
   ]
 : 
   [
-    Ethereum,
-    Goerli,
-    Binance,
-    BinanceTestnet,
-    Avalanche,
-    AvalancheFuji,
     Polygon,
     Mumbai,
     BaseGoerli,
