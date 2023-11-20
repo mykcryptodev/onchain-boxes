@@ -8,24 +8,23 @@ import {
 export const SUPPORTED_CHAINS = process.env.NODE_ENV === 'production'
 ? 
   [
-    Mumbai,
-    BaseGoerli,
+    Polygon,
   ]
 : 
   [
     Polygon,
-    Mumbai,
-    BaseGoerli,
-    Base
+    // Mumbai,
+    // BaseGoerli,
+    // Base
   ]
 ;
 
 export const DEFAULT_CHAIN = process.env.NODE_ENV === 'production' 
-? Mumbai
-: Mumbai
+? Polygon
+: Polygon
 ;
 export const ADVERTISEMENT_CHAIN = process.env.NODE_ENV === "production"
-? BaseGoerli
-: BaseGoerli
+? Polygon
+: Polygon
 ;
 export const VOTING_CHAIN = BaseGoerli;

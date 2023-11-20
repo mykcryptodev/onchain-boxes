@@ -26,11 +26,13 @@ export const WETH: ContractAddress = {
 export const HERO_ADVERTISEMENT: ContractAddress = {
   ['base']: '0x883e650597b8e42ecfbB7605c906B62c586668c2',
   ['base-goerli']: '0xd9fD28A94b3B3E622B7B937836a9fA860869EF09',
+  ['polygon']: '0x57d07A99dc85D96a7C603f85CA4f5c98ACBfbcb4',
 }
 
 export const BANNER_ADVERTISEMENT: ContractAddress = {
   ['base']: '0x4047f984f20f174919bffbf0c5f347270d13a112',
   ['base-goerli']: '0xD13E80EE333FF58F3711b45c3F03b09ced284133',
+  ['polygon']: '0xd688F6f2cCe823448f0afbfd82f71140E0f0465C',
 }
 
 export const DEFAULT_PRIMARY_SALE_RECIPIENT = "0x5079EC85c3c8F8E932Bd011B669b77d703DEEea7";
@@ -68,6 +70,7 @@ export const BOX_CONTRACT: ContractAddress = {
   // ['mumbai']: '0xa114Ef31a6A1F66b3129A175980aCD697D3257aa',
   // ['mumbai']: '0x8Af094CaEFD25e2577700e4EB69c33247971a88a',
   ['mumbai']: '0x6CEF1850753b783ba6eF7C568C85Dc10918537D8',
+  ['polygon']: '0xA9FE0dBffF2F42f11dBb3E476813cad7871Bd961',
 }
 
 export const GAMESCORE_ORACLE_CONTRACT: ContractAddress = {
@@ -77,12 +80,15 @@ export const GAMESCORE_ORACLE_CONTRACT: ContractAddress = {
   // ['mumbai']: '0xa114Ef31a6A1F66b3129A175980aCD697D3257aa',
   // ['mumbai']: '0x8Af094CaEFD25e2577700e4EB69c33247971a88a',
   ['mumbai']: '0x6CEF1850753b783ba6eF7C568C85Dc10918537D8',
+  ['polygon']: '0xA9FE0dBffF2F42f11dBb3E476813cad7871Bd961',
 }
 
 export const CHAINLINK_ROUTER_ADDRESS: ContractAddress = {
   ['mumbai']: '0x6E2dc0F9DB014aE19888F539E59285D2Ea04244C',
+  ['polygon']: '0xdc2AAF042Aeff2E68B3e8E33F19e4B9fA7C73F10',
 }
 
 export const CHAINLINK: ContractAddress = {
   ['mumbai']: '0x326C977E6efc84E512bB9C30f76E30c160eD06FB',
+  ['polygon']: '0xb0897686c545045afc77cf20ec7a532e3120e0f1',
 }
