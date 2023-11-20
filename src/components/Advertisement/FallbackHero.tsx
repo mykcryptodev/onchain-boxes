@@ -12,7 +12,7 @@ interface Props {
 export const FallbackHero: FC<Props> = ({ isPrimaryHero }) => {
   const isDarkTheme = useIsDarkTheme();
 
-  const description = `${MARKETPLACE_NAME} collects fees from trades and stores them in a smart contract whose funds can only be sent via votes`
+  const description = `${MARKETPLACE_NAME} is an experiment that brings a classic game of community fun to the blockchain. It uses Chainlink Functions for real-world data and Thirdweb for social login.`
 
   return (
     <div className={`w-full h-full rounded-lg ${isDarkTheme ? '' : 'bg-gradient-to-br from-transparent via-transparent to-primary'} bg-cover bg-no-repeat`}>
@@ -24,11 +24,11 @@ export const FallbackHero: FC<Props> = ({ isPrimaryHero }) => {
                 {MARKETPLACE_NAME}
               </span>
               <span className="text-end text-sm">
-                by <a className="font-bold" href="https://pawthereum.com" target="_blank" rel="noreferrer">Pawthereum</a>
+                by <a className="font-bold" href="https://twitter.com/mykcryptodev" target="_blank" rel="noreferrer">Myk.eth</a>
               </span>
             </div>
             <div className={`${isPrimaryHero ? '' : 'md:text-base sm:text-sm text-xs sm:pt-0 pt-2'}`}>
-              Play Super Bowl boxes onchain with crypto and decentralized sports oracles
+              Play Super Bowl boxes for any NFL game using blockchain and decentralized oracle networks
             </div>
             <div className="flex items-center">
               <div onClick={() => {
@@ -46,7 +46,7 @@ export const FallbackHero: FC<Props> = ({ isPrimaryHero }) => {
               </Link>
             </div>
           </div>
-          <div className="h-full items-end sm:flex hidden">
+          <div className="h-full items-end sm:flex hidden text-sm">
             {description}
           </div>
         </div>
@@ -54,7 +54,7 @@ export const FallbackHero: FC<Props> = ({ isPrimaryHero }) => {
           <div className="mx-auto">
             <Image src="/images/logo-alt.png" alt="Onchain Boxes Logo" priority={true} width={400} height={400} />
           </div>
-          <div className="h-full items-end sm:hidden flex">
+          <div className="h-full items-end sm:hidden flex text-sm">
             {description}
           </div>
         </div>

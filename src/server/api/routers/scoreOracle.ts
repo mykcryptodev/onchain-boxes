@@ -6,7 +6,7 @@
 //   simulateScript,
 //   SubscriptionManager,
 // } from "@chainlink/functions-toolkit";
-import { ThirdwebSDK } from "@thirdweb-dev/sdk";
+import { ThirdwebSDK, type TransactionResult } from "@thirdweb-dev/sdk";
 import { ethers, type Signer } from "ethers";
 import { z } from "zod";
 
@@ -145,27 +145,40 @@ export const scoreOracleRouter = createTRPCRouter({
       ethers.utils.formatBytes32String(donId), // jobId is bytes32 representation of donId
       args[0],
     ) as string;
-  
-    // Actual transaction call
+
+    const contract = await sdk.getContract(consumerAddress);
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
-    const transaction = await functionsConsumer?.fetchGameScores?.(
-      source, // source
+    const transaction = await contract.call("fetchGameScores", [
+      source,
       args,
       subscriptionId,
       gasLimit,
-      ethers.utils.formatBytes32String(donId), // jobId is bytes32 representation of donId
+      ethers.utils.formatBytes32String(donId),
       args[0],
-    );
+    ], {
+      gasPrice: await signer.getGasPrice(),
+    }) as TransactionResult;
+  
+    // Actual transaction call
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
+    // const transaction = await functionsConsumer?.fetchGameScores?.(
+    //   source, // source
+    //   args,
+    //   subscriptionId,
+    //   gasLimit,
+    //   ethers.utils.formatBytes32String(donId), // jobId is bytes32 representation of donId
+    //   args[0],
+    // );
   
     // Log transaction details
     console.log(
       // eslint-disable-next-line @typescript-eslint/restrict-template-expressions, @typescript-eslint/no-unsafe-member-access
-      `\n✅ Functions request sent! Transaction hash ${transaction.hash} -  Request id is ${requestId}. Waiting for a response...`
+      `\n✅ Functions request sent! Transaction hash ${transaction.receipt.transactionHash} -  Request id is ${requestId}. Waiting for a response...`
     );
   
     console.log(
       // eslint-disable-next-line @typescript-eslint/restrict-template-expressions, @typescript-eslint/no-unsafe-member-access
-      `See your request in the explorer ${explorerUrl}/tx/${transaction.hash}`
+      `See your request in the explorer ${explorerUrl}/tx/${transaction.receipt.transactionHash}`
     );
   
     /* COMMENT OUT LISTENER FOR NOW 
