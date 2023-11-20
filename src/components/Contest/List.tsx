@@ -15,7 +15,11 @@ import { api } from "~/utils/api";
 
 const CONTESTS_PER_PAGE = 10;
 
-export const ContestList: FC = () => {
+type Props = {
+  withUser?: string;
+}
+
+export const ContestList: FC<Props> = ({ withUser }) => {
   const { activeChainData } = useContext(ActiveChainContext);
   const [page, setPage] = useState<number>(1);
   const { 
@@ -24,6 +28,7 @@ export const ContestList: FC = () => {
     error: contestListError,
   } = api.contest.list.useQuery({
     chainId: activeChainData.chainId,
+    withUser,
     take: CONTESTS_PER_PAGE,
     skip: (page - 1) * CONTESTS_PER_PAGE,
   });

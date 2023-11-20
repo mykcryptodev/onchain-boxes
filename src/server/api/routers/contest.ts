@@ -1,5 +1,5 @@
 import { ThirdwebSDK } from "@thirdweb-dev/sdk";
-import { type BigNumber } from "ethers";
+import { BigNumber } from "ethers";
 import { z } from "zod";
 
 import { BOX_CONTRACT } from "~/constants/addresses";
@@ -49,6 +49,7 @@ export const contestRouter = createTRPCRouter({
   list: publicProcedure
     .input(z.object({
       chainId: z.number(),
+      withUser: z.string().optional(),
       take: z.number().optional(),
       skip: z.number().optional(),
     }))
@@ -59,7 +60,13 @@ export const contestRouter = createTRPCRouter({
       });
       const contract = await sdk.getContract(BOX_CONTRACT[chain.slug] as string);
       // the ending index cannot be greater than the total number of contests
-      const totalContests = await contract.call("contestIdCounter") as BigNumber;
+      let totalContests = BigNumber.from(0);
+      if (input.withUser) {
+        const contestsWithUser = await contract.call("fetchAllContestsWithUser", [input.withUser]) as BigNumber[];
+        totalContests = BigNumber.from(contestsWithUser.length);
+      } else {
+        totalContests = await contract.call("contestIdCounter") as BigNumber;
+      }
       const startingIndex = Math.max((input.skip ? totalContests.toNumber() - input.skip : totalContests.toNumber()), 0);
       const endingIndex = Math.max(startingIndex - (input.take ?? totalContests.toNumber()), 0);
       if (startingIndex > totalContests.toNumber()) throw new Error("Invalid starting index");

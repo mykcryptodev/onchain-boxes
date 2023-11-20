@@ -6,8 +6,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
-import { type FC, useEffect, useMemo, useState } from "react";
+import { type FC,useEffect, useMemo, useState } from "react";
 
+import ContestList from "~/components/Contest/List";
 import CensoredContent from "~/components/Report/CensoredContent";
 import CreateReport from "~/components/Report/Create";
 import ChainSelector from "~/components/utils/ChainSelector";
@@ -51,8 +52,8 @@ export const Profile: NextPage = () => {
     connectedAddress?.toLowerCase() === profile?.userId.toLowerCase() || 
     connectedAddress?.toLowerCase() === address?.toLowerCase();
 
-  const tabs = ["Collected", "Offers Made", "Active Listings", "Liked"];
-  const [activeTab, setActiveTab] = useState<string>("Collected");
+  const tabs = ["Contests Played"];
+  const [activeTab, setActiveTab] = useState<string>("Contests Played");
 
   if ((profileIsLoading || isCensoredIsLoading) && !profile) return (
     <div className="flex flex-col gap-2">
@@ -173,11 +174,11 @@ export const Profile: NextPage = () => {
         </div>
         <div className="col-span-12 lg:col-span-5">
           <div className="w-full flex justify-center lg:justify-normal">
-            <div className="tabs flex flex-nowrap overflow-x-auto sm:my-0 my-4">
+            <div className="tabs sm:tabs-lg tabs-sm tabs-bordered  flex flex-nowrap overflow-x-auto sm:my-0 my-4">
               {tabs.map((tab) => (
                 <a
                   key={tab}
-                  className={`tab sm:tab-lg tab-sm tab-bordered whitespace-nowrap ${activeTab === tab ? "tab-active" : ""}`}
+                  className={`tab whitespace-nowrap ${activeTab === tab ? "tab-active" : ""}`}
                   onClick={() => setActiveTab(tab)}
                 >
                   {tab}
@@ -190,6 +191,9 @@ export const Profile: NextPage = () => {
           <ChainSelector />
         </div>
         <div className="col-span-0 lg:col-span-1" />
+        <div className="col-span-10 col-start-2">
+          {activeTab === "Contests Played" && <ContestList withUser={profile?.userId} />}
+        </div>
       </div>
     </div>
   );

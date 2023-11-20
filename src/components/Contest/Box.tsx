@@ -241,7 +241,7 @@ export const Box:FC<{
                       popNotification({
                         type: "success",
                         title: "Reward Claimed",
-                        description: `Your reward of ${pendingRewardAmount} ${activeChainData.nativeCurrency.symbol} is on the way!`,
+                        description: `The reward of ${pendingRewardAmount} ${activeChainData.nativeCurrency.symbol} is on the way!`,
                         actions: [{
                           label: "View Transaction",
                           link: `${activeChainData.explorers?.[0]?.url ?? ''}/tx/${tx.receipt.transactionHash}`,
