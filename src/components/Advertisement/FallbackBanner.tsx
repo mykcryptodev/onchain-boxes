@@ -9,7 +9,7 @@ export const FallbackBanner: FC = () => {
 
   return (
     <Link href="/advertisement/create" className={`flex w-full justify-center text-center items-center text-xs ${isDarkTheme ? 'text-base-content' : 'text-neutral'} text-opacity-50 p-2 gap-1 h-full`}>
-      Your ad could be here! Advertise with {MARKETPLACE_NAME} onchain.
+      Your ad could be here! Advertise with {MARKETPLACE_NAME}.
     </Link>
   )
 }

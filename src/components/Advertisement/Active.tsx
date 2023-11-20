@@ -176,7 +176,7 @@ export const ActiveAdvertisement: FC<Props> = ({ type, showFallback }) => {
         <div className="w-full bg-base-200 rounded-lg">
           <FallbackHero isPrimaryHero={true} />
           <Link href="/advertisement/create" className="flex w-full justify-end items-center text-xs p-2 gap-1 text-muted bg-base-100">
-            <span>Advertise with {MARKETPLACE_NAME} onchain</span>
+            <span>Advertise with {MARKETPLACE_NAME}</span>
             <ArrowTopRightOnSquareIcon className="w-3 h-3 stroke-2" />
           </Link>
         </div>
