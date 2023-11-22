@@ -2,6 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Animation */
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.slide-up {
+  animation: slideUp 300ms ease-out forwards;
+}
+
 /* Extend daisy */
 .badge-xl {
   height: 2rem;
