@@ -309,7 +309,7 @@ export const Contest: NextPage = () => {
             </div>
           </div>
           {address && !profileIsLoading && userHasNoProfileName && selectedBoxes.length > 0 && (
-            <div className="btm-nav sm:h-1/2 h-4/5 bg-base-300 z-10 px-2">
+            <div className="btm-nav sm:h-1/2 h-4/5 bg-base-300 z-10 px-2 slide-up">
               <div className="flex flex-col gap-2">
                 <div className="flex justify-end w-full max-w-sm">
                   <button
@@ -332,7 +332,7 @@ export const Contest: NextPage = () => {
             </div>
           )}
           {address && !hasEnoughBalance && selectedBoxes.length > 0 && (
-            <div className="btm-nav sm:h-2/6 h-1/2 bg-base-300">
+            <div className="btm-nav sm:h-2/6 h-1/2 bg-base-300 slide-up">
               <div className="flex flex-col gap-2">
                 <div className="flex justify-end w-full max-w-sm">
                   <button
@@ -422,7 +422,7 @@ export const Contest: NextPage = () => {
             </div>
           )}
           {(hasEnoughBalance || !address) && contest.boxesCanBeClaimed && selectedBoxes.length > 0 && (
-            <div className="btm-nav h-1/6 bg-base-300">
+            <div className="btm-nav h-1/6 bg-base-300 slide-up">
               <Web3Button
                 className="thirdweb-btn-primary-lg"
                 isDisabled={totalCost.eq(0)}
