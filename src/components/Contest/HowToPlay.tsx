@@ -66,7 +66,7 @@ export const HowToPlay: FC = () => {
                 <div className="stat">
                   <div className="stat-title">Final</div>
                   <div className="stat-value">38%</div>
-                  <div className="stat-desc">Remaining 2% goes towards keeping the dapp operational</div>
+                  <div className="stat-desc">Remaining 2% platform fee</div>
                 </div>
               </div>
             </div>
