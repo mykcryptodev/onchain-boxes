@@ -24,12 +24,15 @@ export const Header: FC<Props> = ({ game }) => {
     }) 
     : "TBD"
   ;
+  const isInFuture = !game.competitions[0]?.date ? false : new Date(game.competitions[0]?.date) > new Date();
   return (
     <div className="flex flex-col gap-2 text-center">
       <div className="text-2xl font-bold">
         {awayTeam?.team.name} @ {homeTeam?.team.name}
       </div>
-      <div>{startTime}</div>
+      {!isInFuture && (
+        <div>{startTime}</div>
+      )}
       {game.competitions[0]?.status?.type && (
         <div>
           {game.competitions[0].status.type.detail}
