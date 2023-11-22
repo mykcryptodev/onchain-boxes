@@ -85,7 +85,7 @@ export const Navigation: FC = () => {
           <div className="flex-none gap-2 space-x-2">
             <div className="dropdown dropdown-end flex items-center gap-2">
               <HowToPlay />
-              <ThemeSwitch />
+              {!address && (<ThemeSwitch />)}
             </div>
             <div className="dropdown dropdown-end flex items-center">
               <ConnectWallet 
