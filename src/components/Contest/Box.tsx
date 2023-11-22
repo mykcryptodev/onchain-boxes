@@ -113,7 +113,10 @@ export const Box:FC<{
       pendingRewardAmount += totalAmountInContest * PAYOUTS.f;
     }
     if (box.owner === ethers.constants.AddressZero) return pendingRewardAmount / 2;
-    return pendingRewardAmount;
+    return pendingRewardAmount.toLocaleString([], {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 6,
+    });
   }, [box, contest, hasWon, isWinner.f, isWinner.q1, isWinner.q2, isWinner.q3]);
 
   // Insert this code at the desired location

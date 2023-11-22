@@ -357,7 +357,10 @@ export const Contest: NextPage = () => {
                     </div>
                     <div className="stat-title">Your Balance</div>
                     <div className="stat-value">
-                      {userNativeBalance?.displayValue ?? '0'}
+                      {Number(userNativeBalance?.displayValue).toLocaleString([], {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 6,
+                      }) ?? '0'}
                     </div>
                     <div className="stat-desc">
                       {activeChainData.nativeCurrency.name}
