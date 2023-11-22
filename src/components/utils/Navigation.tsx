@@ -6,6 +6,7 @@ import Link from "next/link";
 import { signOut } from "next-auth/react";
 import { type FC,useMemo } from "react";
 
+import HowToPlay from "~/components/Contest/HowToPlay";
 import Avatar from "~/components/Profile/Avatar";
 import Name from "~/components/Profile/Name";
 import ThemeSwitch from "~/components/utils/ThemeSwitch";
@@ -82,7 +83,8 @@ export const Navigation: FC = () => {
             </Link>
           </div>
           <div className="flex-none gap-2 space-x-2">
-            <div className="dropdown dropdown-end">
+            <div className="dropdown dropdown-end flex items-center gap-2">
+              <HowToPlay />
               <ThemeSwitch />
             </div>
             <div className="dropdown dropdown-end flex items-center">
