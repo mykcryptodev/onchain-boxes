@@ -1,3 +1,4 @@
+import { XMarkIcon } from "@heroicons/react/24/outline";
 import { MediaRenderer } from "@thirdweb-dev/react";
 import { type FC } from "react";
 
@@ -9,6 +10,12 @@ export const HowToPlay: FC = () => {
       </button>
       <dialog id="how_to_play_modal" className="modal modal-bottom sm:modal-middle">
         <div className="modal-box">
+          <form method="dialog">
+            {/* if there is a button in form, it will close the modal */}
+            <button className="btn btn-sm btn-circle btn-ghost absolute right-4 top-4">
+              <XMarkIcon className="w-4 h-4 stroke-2" />
+            </button>
+          </form>
           <h3 className="font-bold text-2xl">How to Play</h3>
           <p className="py-4 prose">Super Bowl boxes also known as Super Bowl Squares is a game of community fun where users can win prizes based on the scores of a football game.</p>
           <span className="font-bold">What are Superbowl Boxes?</span>
