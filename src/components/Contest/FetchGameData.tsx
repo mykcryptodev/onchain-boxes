@@ -43,6 +43,7 @@ export const FetchGameData: FC<Props> = ({ game, btnClass, btnLabel, onFetched, 
     "gameScores",
     [game.id]
   );
+  const isInFuture = !game.competitions[0]?.date ? false : new Date(game.competitions[0]?.date) > new Date();
   const isLoading = useMemo(() => {
     return fetchIsLoading || (oracleGame?.requestInProgress || false);
   }, [fetchIsLoading, oracleGame]);
@@ -78,6 +79,7 @@ export const FetchGameData: FC<Props> = ({ game, btnClass, btnLabel, onFetched, 
       });
     }
   }
+  if (isInFuture) return null;
   return (
     <div 
       className={`tooltip ${tooltipDirection ?? 'sm:tooltip-top tooltip-right'}`} 
