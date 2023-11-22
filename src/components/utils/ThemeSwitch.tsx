@@ -41,8 +41,8 @@ const ThemeSwitch: FC<Props> = ({ toggle }) => {
     <div className="mx-auto w-full justify-center flex">
       <label className="swap swap-rotate">
         <input type="checkbox" checked={theme === "light"} onChange={() => setTheme(theme === "dark" ? "light" : "dark")} />
-        <SunIcon className="swap-on w-8 h-8 stroke-2" />
-        <MoonIcon className="swap-off w-8 h-8 stroke-2" />
+        <SunIcon className="swap-on lg:w-8 lg:h-8 w-6 h-6 stroke-2" />
+        <MoonIcon className="swap-off lg:w-8 lg:h-8 w-6 h-6 stroke-2" />
       </label>
     </div>
   )
