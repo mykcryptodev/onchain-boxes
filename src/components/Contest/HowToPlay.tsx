@@ -9,7 +9,7 @@ export const HowToPlay: FC = () => {
         How to play
       </button>
       <dialog id="how_to_play_modal" className="modal modal-bottom sm:modal-middle">
-        <div className="modal-box">
+        <div className="modal-box max-h-96">
           <form method="dialog">
             {/* if there is a button in form, it will close the modal */}
             <button className="btn btn-sm btn-circle btn-ghost absolute right-4 top-4">
