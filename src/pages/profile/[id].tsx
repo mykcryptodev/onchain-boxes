@@ -11,6 +11,7 @@ import { type FC,useEffect, useMemo, useState } from "react";
 import ContestList from "~/components/Contest/List";
 import CensoredContent from "~/components/Report/CensoredContent";
 import CreateReport from "~/components/Report/Create";
+import ActiveChainContext from "~/context/ActiveChain";
 import ChainSelector from "~/components/utils/ChainSelector";
 import DiscordIcon from "~/components/utils/icons/Discord";
 import BlockchainExplorerIcon from "~/components/utils/icons/Etherscan";
@@ -48,6 +49,7 @@ export const Profile: NextPage = () => {
   const [proceedToCensoredContent, setProceedToCensoredContent] = useState<boolean>(false);
   const { shortenedAddress } = useShortenedAddress(profile?.id || address);
   const connectedAddress = useAddress();
+  const { activeChainData } = useContext(ActiveChainContext);
   const isUserProfile = 
     connectedAddress?.toLowerCase() === profile?.userId.toLowerCase() || 
     connectedAddress?.toLowerCase() === address?.toLowerCase();
@@ -79,7 +81,7 @@ export const Profile: NextPage = () => {
 
   const Links: FC<{ className?: string }> = ({ className }) => (
     <div className={className || "items-center gap-6 flex"}>
-      <Link href={`https://etherscan.io/address/${profile?.userId || addressOrName}`} className="flex items-center gap-2">
+      <Link href={`${activeChainData.explorers?.[0]?.url ?? 'https://etherscan.io'}/address/${profile?.userId || addressOrName}`} className="flex items-center gap-2">
         <BlockchainExplorerIcon height="32" width="32" />
       </Link>
       {profile?.twitter && (
