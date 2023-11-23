@@ -61,8 +61,9 @@ export const contestRouter = createTRPCRouter({
       const contract = await sdk.getContract(BOX_CONTRACT[chain.slug] as string);
       // the ending index cannot be greater than the total number of contests
       let totalContests = BigNumber.from(0);
+      let contestsWithUser: BigNumber[] = [];
       if (input.withUser) {
-        const contestsWithUser = await contract.call("fetchAllContestsWithUser", [input.withUser]) as BigNumber[];
+        contestsWithUser = await contract.call("fetchAllContestsWithUser", [input.withUser]) as BigNumber[];
         totalContests = BigNumber.from(contestsWithUser.length);
       } else {
         totalContests = await contract.call("contestIdCounter") as BigNumber;
@@ -80,7 +81,7 @@ export const contestRouter = createTRPCRouter({
           // make an array from the starting index to the ending index
           Array.from({ length: startingIndex - endingIndex }).map((_, index) => {
             // get the contest id by subtracting the index from the starting index
-            const contestId = startingIndex - (index + 1);
+            const contestId = input.withUser ? contestsWithUser[index] : startingIndex - (index + 1);
             // get the contest data
             return contract.call("contests", [contestId]);
           })
