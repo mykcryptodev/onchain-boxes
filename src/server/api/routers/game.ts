@@ -71,11 +71,13 @@ export const gameRouter = createTRPCRouter({
   getByWeek: publicProcedure
     .input(z.object({
       week: z.number(),
+      season: z.number(),
     }))
     .query(async ({ input }) => {
-      const response = await fetch(`${ESPN_BASE_URL}/scoreboard?week=${input.week}`, {
+      const response = await fetch(`${ESPN_BASE_URL}/scoreboard?week=${input.week}&seasontype=${input.season}`, {
         next: { revalidate: 60 } // revalidate every minute
       });
+      console.log({ response })
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
@@ -97,6 +99,22 @@ export const gameRouter = createTRPCRouter({
       type EspnApiResponse = {
         week: {
           number: number;
+        };
+      };
+      const data = await response.json() as EspnApiResponse;
+      return data;
+    }),
+  getCurrentSeason: publicProcedure
+    .query(async () => {
+      const response = await fetch(`${ESPN_BASE_URL}/scoreboard`, {
+        next: { revalidate: 60 * 60 * 24 } // revalidate every day
+      });
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      type EspnApiResponse = {
+        season: {
+          type: number;
         };
       };
       const data = await response.json() as EspnApiResponse;

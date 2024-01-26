@@ -14,9 +14,20 @@ import { api } from "~/utils/api";
 
 interface FormInput {
   gameId: string;
+  season: number;
   week: number;
   boxCost: number;
 }
+
+type SeasonMapT = {
+  [key: number]: string;
+};
+
+const SeasonMap = {
+  [1]: "Preseason",
+  [2]: "Regular Season",
+  [3]: "Postseason",
+} as SeasonMapT;
 
 export const GameForm: FC = () => {
   const router = useRouter();
@@ -24,10 +35,12 @@ export const GameForm: FC = () => {
   const connectWalletOptions = useConnectWalletOptions();
   const { popNotification } = useContext(NotificationContext);
   const { data: currentWeek } = api.game.getCurrentWeek.useQuery();
+  const { data: currentSeason } = api.game.getCurrentSeason.useQuery();
   const { register, handleSubmit, watch, reset } = useForm<FormInput>({
     defaultValues: {
       gameId: '',
       week: currentWeek?.week?.number ?? 1,
+      season: currentSeason?.season?.type ?? 2, // default to regular season
       boxCost: 0,
     },
   });
@@ -36,11 +49,28 @@ export const GameForm: FC = () => {
       gameId: '',
       week: currentWeek?.week?.number ?? 1,
       boxCost: 0,
+      season: currentSeason?.season?.type ?? 2,
     });
-  }, [currentWeek?.week?.number, reset]);
+  }, [currentSeason?.season?.type, currentWeek?.week?.number, reset]);
   const week = watch("week");
   const gameId = watch("gameId");
   const boxCost = watch("boxCost");
+  const season = watch("season");
+  const numWeeks = useMemo(() => {
+    console.log({ season })
+    const weeksInRegularSeason = 17;
+    const weeksInPreseason = 4;
+    switch (Number(season)) {
+      case 1:
+        return weeksInPreseason;
+      case 2:
+        return weeksInRegularSeason;
+      case 3:
+        return currentWeek?.week?.number ?? 1;
+      default:
+        return weeksInRegularSeason;
+    }
+  }, [currentWeek?.week?.number, season]);
   const boxCostEther = !boxCost ? BigNumber.from("0") : ethers.utils.parseEther(boxCost.toString());
   const etherPrice = useEtherPrice(activeChainData);
   const boxCostUsd = useMemo(() => {
@@ -58,7 +88,8 @@ export const GameForm: FC = () => {
     ));
   }, [activeChainData.chainId, activeChainData.nativeCurrency.decimals, activeChainData.nativeCurrency.name, activeChainData.nativeCurrency.symbol, boxCostEther, etherPrice]);
   const { data: weekData, isLoading: isLoadingWeekData } = api.game.getByWeek.useQuery({
-    week: Number(week)
+    week: Number(week),
+    season: Number(season),
   });
   const onSubmit: SubmitHandler<FormInput> = (data) => {
     console.log({ data })
@@ -68,6 +99,29 @@ export const GameForm: FC = () => {
     <div className="flex justify-center w-full">
       <form onSubmit={void handleSubmit(onSubmit)}>
         <div className="flex flex-col gap-2">
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text text-lg capitalize">Season</span>
+            </label>
+            <div className="text-sm pb-2">
+              Select a season to populate the weeks you can choose from
+            </div>
+            <select
+              {...register("season")}
+              className="select select-bordered w-full max-w-xs"
+            >
+              <option value="">Select a season</option>
+              {/* season options are 1 - 3 */}
+              {/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment */}
+              {[...Array(3)].map((_, i) => {
+                return (
+                  <option key={i} value={i + 1}>
+                    {SeasonMap[i + 1]}
+                  </option>
+                )
+              })}
+            </select>
+          </div>
           <div className="form-control">
             <label className="label">
               <span className="label-text text-lg capitalize">Week</span>
@@ -80,9 +134,8 @@ export const GameForm: FC = () => {
               className="select select-bordered w-full max-w-xs"
             >
               <option value="">Select a week</option>
-              {/* week options are 1 - 16 */}
               {/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment */}
-              {[...Array(16)].map((_, i) => {
+              {[...Array(numWeeks)].map((_, i) => {
                 return (
                   <option key={i} value={i + 1}>
                     Week {i + 1}
