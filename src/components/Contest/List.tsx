@@ -25,13 +25,16 @@ export const ContestList: FC<Props> = ({ withUser }) => {
   const { 
     data: contestList, 
     isLoading: isLoadingContests,
-    error: contestListError,
   } = api.contest.list.useQuery({
     chainId: activeChainData.chainId,
     withUser,
     take: CONTESTS_PER_PAGE,
     skip: (page - 1) * CONTESTS_PER_PAGE,
+  }, {
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
   });
+  console.log({ contestList })
   const { 
     data: games,
     isLoading: isLoadingGames,
@@ -39,8 +42,9 @@ export const ContestList: FC<Props> = ({ withUser }) => {
     ids: contestList?.contests?.map((c) => Number(c.gameId)) ?? [],
   }, {
     enabled: !!contestList?.contests?.length,
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
   });
-  console.log({ isLoadingContests, isLoadingGames, games, contestList, contestListError });
   const contestWithGame = contestList?.contests?.map((contest) => {
     const game = games?.find((g) => Number(g?.id) === Number(contest.gameId));
     return {

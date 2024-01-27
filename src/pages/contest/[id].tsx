@@ -146,6 +146,8 @@ export const Contest: NextPage = () => {
     id: Number(contest?.gameId ?? 0),
   }, {
     enabled: contest !== undefined,
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
   });
   const lastDigits = useLastDigits({ game });
 

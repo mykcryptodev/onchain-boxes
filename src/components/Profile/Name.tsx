@@ -27,6 +27,10 @@ export const Name: FC<NameProps> = ({ address, profile, chain, className, shorte
   const chainId = chain?.chainId || activeChainData.chainId;
   const { data: fetchedProfile, isLoading: profileIsLoading } = api.profile.get.useQuery({ 
     userId: address?.toLowerCase() || "" 
+  }, {
+    enabled: !!address,
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
   });
   profile = profile || fetchedProfile;
   const { data: isCensored } = useContentIsCensored(profile?.id || "", "profile");

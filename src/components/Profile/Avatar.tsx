@@ -28,6 +28,10 @@ export const Avatar: FC<AvatarProps> = ({ profile, address, width, height, fill,
     data: fetchedProfile, 
     isLoading: profileIsLoading } = api.profile.get.useQuery({ 
       userId: address?.toLowerCase() 
+  }, {
+    enabled: !!address,
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
   });
   profile = profile || fetchedProfile;
   const { data: isCensored } = useContentIsCensored(profile?.id || "", "profile");
