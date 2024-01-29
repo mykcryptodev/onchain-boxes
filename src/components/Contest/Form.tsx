@@ -60,17 +60,18 @@ export const GameForm: FC = () => {
     console.log({ season })
     const weeksInRegularSeason = 17;
     const weeksInPreseason = 4;
+    const weeksInPostseason = 5;
     switch (Number(season)) {
       case 1:
         return weeksInPreseason;
       case 2:
         return weeksInRegularSeason;
       case 3:
-        return currentWeek?.week?.number ?? 1;
+        return weeksInPostseason;
       default:
         return weeksInRegularSeason;
     }
-  }, [currentWeek?.week?.number, season]);
+  }, [season]);
   const boxCostEther = !boxCost ? BigNumber.from("0") : ethers.utils.parseEther(boxCost.toString());
   const etherPrice = useEtherPrice(activeChainData);
   const boxCostUsd = useMemo(() => {
