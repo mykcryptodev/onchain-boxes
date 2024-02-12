@@ -18,8 +18,10 @@ const useLastDigits = ({ game } : {
     const q3 = parseInt(linescore?.[2]?.value?.toString() || linescore?.[2]?.displayValue || "0");
     const q3LastDigit = parseInt((q1 + q2 + q3).toString().slice(-1));
     // final score is the last digit of the sum of all scores
-    const f = parseInt(linescore?.[3]?.value?.toString() || linescore?.[3]?.displayValue || "0");
-    const fLastDigit = parseInt((q1 + q2 + q3 + f).toString().slice(-1));
+    const allLineScores = linescore?.map(score => parseInt(score.value?.toString() || score.displayValue || "0")) || [];
+    // sum all of the scores
+    const f = allLineScores.reduce((a, b) => a + b, 0);
+    const fLastDigit = parseInt(f.toString().slice(-1));
     return {
       q1: q1LastDigit,
       q2: q2LastDigit,

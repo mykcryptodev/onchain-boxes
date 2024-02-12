@@ -184,7 +184,7 @@ export const Contest: NextPage = () => {
   }, {
     enabled: !!address,
   });
-  console.log({ profile })
+  console.log({ profile, oracleGame })
   const userHasNoProfileName = useMemo(() => {
     if (!profile) return true;
     return !profile.name || profile.name === '';
