@@ -254,7 +254,7 @@ export const profileRouter = createTRPCRouter({
     }),
 
   update: protectedProcedure.input(profileSchema).mutation(({ ctx, input }) => {
-    const userIsUpdatingOwnProfile = ctx.session.user.id === input.userId?.toLowerCase();
+    const userIsUpdatingOwnProfile = ctx.session.user.id.toLowerCase() === input.id?.toLowerCase();
     const userIsCreatingOwnProfile = !input.id && ctx.session.user.id;
     const userIsAdmin = ctx.session.user.isAdmin;
     if (!userIsUpdatingOwnProfile && !userIsCreatingOwnProfile && !userIsAdmin) {

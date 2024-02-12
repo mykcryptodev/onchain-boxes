@@ -22,10 +22,6 @@ export const Scoreboard: FC<Props> = ({ game }) => {
   const currentQuarter = game.competitions?.[0]?.status?.period ?? 0;
 
   const score = (quarter: number, team: Competitor | undefined) => {
-    console.log({ team, currentQuarter })
-    console.log('quarter passed is ', quarter);
-    console.log('currentQuarter is ', currentQuarter)
-    console.log('the current quarter is less than or equal to the quarter passed in ', currentQuarter <= quarter);
     if (!team || !game) return 0;
     if (currentQuarter < quarter) return '-';
     switch (quarter) {
@@ -35,10 +31,10 @@ export const Scoreboard: FC<Props> = ({ game }) => {
         return (team.linescores?.[0]?.value ?? 0) + (team.linescores?.[1]?.value ?? 0);
       case 3:
         return (team.linescores?.[0]?.value ?? 0) + (team.linescores?.[1]?.value ?? 0) + (team.linescores?.[2]?.value ?? 0);
-      case 4:
-        return (team.linescores?.[0]?.value ?? 0) + (team.linescores?.[1]?.value ?? 0) + (team.linescores?.[2]?.value ?? 0) + (team.linescores?.[3]?.value ?? 0);
       default:
-        return Number(team.score ?? 0);
+        // return a summation of all the linescores for this team
+        const lineScores = team.linescores?.map((score) => score.value ?? 0) ?? [];
+        return lineScores.reduce((a, b) => a + b, 0);
     }
   }
 
